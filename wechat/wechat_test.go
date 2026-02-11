@@ -22,7 +22,7 @@ func (n *nopCache) SetWithTTL(ctx context.Context, key string, value string, ttl
 }
 
 type testConfig struct {
-	WxMini *Config `json:"wx_mini"`
+	WxMini Config `json:"wx_mini"`
 	Dash   struct {
 		Push struct {
 			Platform PushTemplateConfig `json:"platform"`
@@ -40,9 +40,6 @@ func loadTestConfig() (*testConfig, error) {
 	err = json.Unmarshal(raw, &cfg)
 	if err != nil {
 		return nil, err
-	}
-	if cfg.WxMini == nil {
-		return nil, fmt.Errorf("config error: wx_mini is nil")
 	}
 	return &cfg, nil
 }

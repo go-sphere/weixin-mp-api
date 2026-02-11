@@ -41,7 +41,7 @@ type Cache interface {
 // Wechat represents a WeChat API client with token management and caching capabilities.
 // It handles access token lifecycle, API requests, and provides thread-safe operations.
 type Wechat struct {
-	config *Config            // WeChat application configuration
+	config Config             // WeChat application configuration
 	sf     singleflight.Group // Prevents duplicate token requests
 	cache  Cache              // Cache for access tokens and tickets
 	client *resty.Client      // HTTP client for WeChat API requests
@@ -50,7 +50,7 @@ type Wechat struct {
 // NewWechat creates a new WeChat API client with the provided configuration.
 // It initializes the HTTP client with appropriate timeouts, base URL, and optional proxy settings.
 // If no environment is specified, it defaults to the release environment.
-func NewWechat(config *Config, cache Cache) *Wechat {
+func NewWechat(config Config, cache Cache) *Wechat {
 	if config.Env == "" {
 		config.Env = MiniAppEnvRelease
 	}
