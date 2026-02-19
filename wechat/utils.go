@@ -1,5 +1,7 @@
 package wechat
 
+import "strings"
+
 import "unicode/utf8"
 
 type requestOptions struct {
@@ -46,14 +48,14 @@ func TruncateString(s string, maxChars int) string {
 	if utf8.RuneCountInString(s) <= maxChars {
 		return s
 	}
-	truncated := ""
+	var truncated strings.Builder
 	count := 0
 	for _, runeValue := range s {
 		if count >= maxChars {
 			break
 		}
-		truncated += string(runeValue)
+		truncated.WriteString(string(runeValue))
 		count++
 	}
-	return truncated
+	return truncated.String()
 }

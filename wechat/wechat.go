@@ -87,7 +87,7 @@ func (w *Wechat) GetAccessToken(ctx context.Context, reload bool) (string, error
 			return token, nil
 		}
 	}
-	token, err, _ := w.sf.Do(key, func() (interface{}, error) {
+	token, err, _ := w.sf.Do(key, func() (any, error) {
 		resp, err := w.client.R().
 			Clone(ctx).
 			SetQueryParams(map[string]string{
@@ -134,7 +134,7 @@ func (w *Wechat) GetJsTicket(ctx context.Context, reload bool) (string, error) {
 			return token, nil
 		}
 	}
-	ticket, err, _ := w.sf.Do(key, func() (interface{}, error) {
+	ticket, err, _ := w.sf.Do(key, func() (any, error) {
 		ticket, err := withAccessToken[JsTicketResponse](ctx, w, func(ctx context.Context, accessToken string) (*JsTicketResponse, error) {
 			resp, err := w.client.R().
 				Clone(ctx).
